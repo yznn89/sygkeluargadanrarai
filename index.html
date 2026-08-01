@@ -11,6 +11,10 @@
 
 /* BACKGROUND */
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 font-family:Arial;
@@ -42,21 +46,23 @@ width:2px;
 height:2px;
 background:white;
 border-radius:50%;
-animation:twinkle 3s infinite alternate;
+animation:twinkle 4s cubic-bezier(0.4, 0.0, 0.6, 1.0) infinite;
+box-shadow:0 0 4px rgba(255,255,255,0.8);
 }
 
-.star:nth-child(1){top:10%;left:20%;}
-.star:nth-child(2){top:30%;left:70%;}
-.star:nth-child(3){top:60%;left:40%;}
-.star:nth-child(4){top:80%;left:80%;}
-.star:nth-child(5){top:50%;left:10%;}
-.star:nth-child(6){top:20%;left:50%;}
-.star:nth-child(7){top:75%;left:30%;}
-.star:nth-child(8){top:40%;left:85%;}
+.star:nth-child(1){top:10%;left:20%;animation-delay:0s;}
+.star:nth-child(2){top:30%;left:70%;animation-delay:0.5s;}
+.star:nth-child(3){top:60%;left:40%;animation-delay:1s;}
+.star:nth-child(4){top:80%;left:80%;animation-delay:1.5s;}
+.star:nth-child(5){top:50%;left:10%;animation-delay:2s;}
+.star:nth-child(6){top:20%;left:50%;animation-delay:2.5s;}
+.star:nth-child(7){top:75%;left:30%;animation-delay:3s;}
+.star:nth-child(8){top:40%;left:85%;animation-delay:3.5s;}
 
 @keyframes twinkle{
-0%{opacity:0.3}
-100%{opacity:1}
+0%{opacity:0.3; transform:scale(1)}
+50%{opacity:1; transform:scale(1.2)}
+100%{opacity:0.3; transform:scale(1)}
 }
 
 /* SUPER SMOOTH INTRO */
@@ -67,21 +73,21 @@ animation:twinkle 3s infinite alternate;
 .spotify-card,
 .footer{
 opacity:0;
-transform:translateY(40px) scale(0.97);
-filter:blur(8px);
-animation:smoothReveal 1.6s cubic-bezier(.19,1,.22,1) forwards;
+transform:translateY(50px) scale(0.95);
+filter:blur(12px);
+animation:smoothReveal 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.stats{animation-delay:.3s;}
-.links{animation-delay:.6s;}
-.spotify-card{animation-delay:.9s;}
-.footer{animation-delay:1.2s;}
+.stats{animation-delay:.4s;}
+.links{animation-delay:.8s;}
+.spotify-card{animation-delay:1.2s;}
+.footer{animation-delay:1.6s;}
 
 @keyframes smoothReveal{
 0%{
 opacity:0;
-transform:translateY(40px) scale(.97);
-filter:blur(10px);
+transform:translateY(50px) scale(0.95);
+filter:blur(12px);
 }
 
 100%{
@@ -101,51 +107,80 @@ margin-top:90px;
 width:130px;
 height:130px;
 border-radius:50%;
-border:3px solid #00eaff;
-box-shadow:0 0 30px #00eaff;
-animation:float 6s ease-in-out infinite;
+border:3px solid #888888;
+box-shadow:0 0 40px rgba(136,136,136,0.5), 0 0 60px rgba(29,185,84,0.2);
+animation:float 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+transition:all 0.4s ease;
+position:relative;
+}
+
+.profile img:hover{
+border-color:#1db954;
+box-shadow:0 0 50px rgba(29,185,84,0.6), 0 0 80px rgba(29,185,84,0.3);
+transform:scale(1.05);
 }
 
 @keyframes float{
-0%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-100%{transform:translateY(0)}
+0%{transform:translateY(0px)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0px)}
 }
 
 .name{
 font-size:32px;
 margin-top:10px;
 font-weight:bold;
+letter-spacing:1px;
+transition:all 0.3s ease;
+}
+
+.name:hover{
+color:#1db954;
+text-shadow:0 0 20px rgba(29,185,84,0.5);
 }
 
 .verify{
-color:#00aaff;
+color:#888888;
 font-size:20px;
 margin-left:6px;
+transition:all 0.3s ease;
+animation:pulse-verify 2s ease-in-out infinite;
+}
+
+.name:hover .verify{
+color:#1db954;
+text-shadow:0 0 15px rgba(29,185,84,0.6);
+}
+
+@keyframes pulse-verify{
+0%, 100%{opacity:0.7; transform:scale(1)}
+50%{opacity:1; transform:scale(1.1)}
 }
 
 /* RUNNING TEXT */
 
 .bio{
-margin-top:6px;
-color:#aaa;
-font-size:14px;
-overflow:hidden;
-white-space:nowrap;
-width:240px;
-margin-left:auto;
-margin-right:auto;
+margin-top:12px;
+color:white;
+font-size:16px;
+letter-spacing:1px;
+font-weight:400;
 position:relative;
+height:28px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .bio span{
-position:absolute;
-animation:runtext 10s linear infinite;
+display:inline-block;
+animation:floatText 3s ease-in-out infinite;
 }
 
-@keyframes runtext{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
+@keyframes floatText{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-8px)}
+100%{transform:translateY(0px)}
 }
 
 /* STATS */
@@ -157,23 +192,53 @@ gap:40px;
 margin-top:22px;
 }
 
+.stat{
+position:relative;
+padding:15px 20px;
+border-radius:12px;
+transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+cursor:pointer;
+text-decoration:none;
+color:inherit;
+display:block;
+}
+
+.stat:hover{
+background:rgba(136,136,136,0.05);
+transform:translateY(-4px);
+}
+
 .stat h3{
-color:#00eaff;
+color:#888888;
 margin:0;
+font-size:28px;
+font-weight:bold;
+transition:color 0.3s ease;
+}
+
+.stat:hover h3{
+color:#1db954;
+text-shadow:0 0 15px rgba(29,185,84,0.5);
 }
 
 .stat p{
-margin:0;
+margin:6px 0 0 0;
 font-size:12px;
 color:#aaa;
+letter-spacing:1px;
+transition:color 0.3s ease;
+}
+
+.stat:hover p{
+color:#888888;
 }
 
 /* BUTTONS */
 
 .links{
 display:grid;
-grid-template-columns:repeat(2,170px);
-gap:16px;
+grid-template-columns:repeat(3,140px);
+gap:12px;
 justify-content:center;
 margin-top:28px;
 }
@@ -190,13 +255,43 @@ align-items:center;
 justify-content:center;
 gap:8px;
 cursor:pointer;
-transition:all .35s cubic-bezier(.19,1,.22,1);
+transition:all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+position:relative;
+overflow:hidden;
+}
+
+.btn::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg, transparent, rgba(136,136,136,0.2), transparent);
+transition:left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn:hover::before{
+left:100%;
 }
 
 .btn:hover{
-border-color:#00eaff;
-box-shadow:0 0 20px rgba(0,234,255,0.5);
-transform:translateY(-4px) scale(1.03);
+border-color:#888888;
+box-shadow:0 0 25px rgba(136,136,136,0.4), inset 0 0 15px rgba(136,136,136,0.1);
+transform:translateY(-6px) scale(1.05);
+background:#1a1a1a;
+}
+
+@media(max-width:500px){
+.links{
+grid-template-columns:repeat(2,120px);
+gap:10px;
+}
+
+.btn{
+padding:10px;
+font-size:12px;
+}
 }
 
 /* SPOTIFY CARD */
@@ -208,13 +303,33 @@ background:#0f0f0f;
 border-radius:16px;
 padding:14px;
 border:1px solid #1a1a1a;
-box-shadow:0 0 18px rgba(0,234,255,0.2);
-transition:.4s;
+box-shadow:0 0 25px rgba(136,136,136,0.15), 0 0 40px rgba(29,185,84,0.1);
+transition:all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+position:relative;
+overflow:hidden;
+}
+
+.spotify-card::before{
+content:'';
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:radial-gradient(circle, rgba(29,185,84,0.1) 0%, transparent 70%);
+opacity:0;
+transition:opacity 0.5s ease;
+pointer-events:none;
+}
+
+.spotify-card:hover::before{
+opacity:1;
 }
 
 .spotify-card:hover{
-transform:scale(1.02);
-box-shadow:0 0 30px rgba(0,234,255,0.4);
+transform:translateY(-12px) scale(1.03);
+box-shadow:0 0 40px rgba(136,136,136,0.3), 0 0 60px rgba(29,185,84,0.2);
+border-color:#1db954;
 }
 
 .spotify-header{
@@ -230,14 +345,6 @@ color:#1db954;
 border-radius:10px;
 }
 
-/* FOOTER */
-
-.footer{
-margin-top:35px;
-color:#888;
-font-size:13px;
-}
-
 /* PAYMENT POPUP */
 
 .popup{
@@ -246,18 +353,20 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.7);
+background:rgba(0,0,0,0.8);
 display:flex;
 align-items:center;
 justify-content:center;
 opacity:0;
 pointer-events:none;
-transition:.35s;
+transition:opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), backdrop-filter 0.4s ease;
+backdrop-filter:blur(0px);
 }
 
 .popup.show{
 opacity:1;
 pointer-events:auto;
+backdrop-filter:blur(8px);
 }
 
 .popup-box{
@@ -265,14 +374,16 @@ background:#0f0f0f;
 width:320px;
 border-radius:18px;
 padding:20px;
-border:1px solid #00eaff;
-box-shadow:0 0 25px rgba(0,234,255,.3);
-transform:scale(.9);
-transition:.3s;
+border:1px solid #888888;
+box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(136,136,136,0.3);
+transform:scale(0.85) translateY(50px);
+transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+opacity:0;
 }
 
 .popup.show .popup-box{
-transform:scale(1);
+transform:scale(1) translateY(0);
+opacity:1;
 }
 
 .qr{
@@ -290,14 +401,48 @@ border-radius:10px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:10px;
+}
+
+.pay img{
+width:40px;
+height:40px;
+object-fit:contain;
 }
 
 .copybtn{
-background:#00eaff;
+background:#888888;
 border:none;
-padding:4px 10px;
+padding:6px 12px;
 border-radius:6px;
 cursor:pointer;
+color:white;
+transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+font-weight:500;
+font-size:12px;
+position:relative;
+overflow:hidden;
+}
+
+.copybtn::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.2);
+transition:left 0.4s;
+}
+
+.copybtn:hover::before{
+left:100%;
+}
+
+.copybtn:hover{
+background:#1db954;
+transform:translateY(-2px) scale(1.08);
+box-shadow:0 6px 16px rgba(29,185,84,0.4);
 }
 
 .close{
@@ -308,6 +453,136 @@ border-radius:8px;
 background:#222;
 color:white;
 cursor:pointer;
+}
+
+/* TOAST NOTIFICATION */
+
+.toast-container{
+position:fixed;
+top:20px;
+right:20px;
+z-index:9999;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.toast{
+background:#1a1a1a;
+border:1px solid #888888;
+border-radius:12px;
+padding:14px 18px;
+color:white;
+display:flex;
+align-items:center;
+gap:10px;
+box-shadow:0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(136,136,136,0.2);
+animation:slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+min-width:280px;
+backdrop-filter:blur(10px);
+}
+
+.toast.success{
+border-color:#1db954;
+background:rgba(29,185,84,0.1);
+}
+
+.toast.error{
+border-color:#ff6b6b;
+background:rgba(255,107,107,0.1);
+}
+
+.toast-icon{
+font-size:18px;
+}
+
+.toast.success .toast-icon{
+color:#1db954;
+}
+
+.toast.error .toast-icon{
+color:#ff6b6b;
+}
+
+.toast-text{
+flex:1;
+font-size:14px;
+font-weight:500;
+}
+
+.toast-close{
+background:none;
+border:none;
+color:#888888;
+cursor:pointer;
+font-size:16px;
+padding:0;
+transition:.2s;
+}
+
+.toast-close:hover{
+color:white;
+}
+
+@keyframes slideIn{
+0%{
+transform:translateX(400px) scale(0.9);
+opacity:0;
+}
+100%{
+transform:translateX(0) scale(1);
+opacity:1;
+}
+}
+
+@keyframes slideOut{
+0%{
+transform:translateX(0) scale(1);
+opacity:1;
+}
+100%{
+transform:translateX(400px) scale(0.9);
+opacity:0;
+}
+}
+
+@media(max-width:500px){
+.links{
+grid-template-columns:repeat(2,120px);
+gap:10px;
+}
+
+.btn{
+padding:10px;
+font-size:12px;
+}
+
+.toast-container{
+right:10px;
+left:10px;
+}
+
+.toast{
+min-width:auto;
+}
+}
+
+.footer{
+margin-top:40px;
+padding:30px 20px;
+}
+
+.footer p{
+margin:8px 0;
+font-size:12px;
+color:#888888;
+transition:all 0.3s ease;
+letter-spacing:0.5px;
+}
+
+.footer p:hover{
+color:#1db954;
+text-shadow:0 0 15px rgba(29,185,84,0.4);
 }
 
 </style>
@@ -326,6 +601,8 @@ cursor:pointer;
 <div class="star"></div>
 </div>
 
+<div class="toast-container" id="toastContainer"></div>
+
 <div class="profile">
 
 <img src="https://files.catbox.moe/5m3m05.jpg">
@@ -342,18 +619,18 @@ Yzeen <i class="fa-solid fa-circle-check verify"></i>
 
 <div class="stats">
 
-<div class="stat">
-<h3>idk</h3>
+<a href="https://www.instagram.com/kkitcatholmes_?igsh=MWgycjdhMDk0M2czdA==" target="_blank" rel="noopener" class="stat">
+<h3>raisya</h3>
 <p>I LIKE YOU</p>
-</div>
+</a>
 
 <div class="stat">
-<h3>200M</h3>
+<h3><span id="followerCount">0</span>M</h3>
 <p>FOLLOWERS</p>
 </div>
 
 <div class="stat">
-<h3>500M</h3>
+<h3><span id="likesCount">0</span>M</h3>
 <p>LIKES</p>
 </div>
 
@@ -365,12 +642,24 @@ Yzeen <i class="fa-solid fa-circle-check verify"></i>
 <i class="fa-brands fa-telegram"></i> Telegram
 </a>
 
-<a href="#" class="btn">
+<a href="https://github.com/yznn89" class="btn">
 <i class="fa-brands fa-github"></i> GitHub
 </a>
 
 <a href="https://whatsapp.com/channel/0029VbDAvTr89inm1gjjk33j" class="btn">
 <i class="fa-brands fa-whatsapp"></i> WhatsApp
+</a>
+
+<a href="https://www.tiktok.com/@yzeen.gss" class="btn">
+<i class="fa-brands fa-tiktok"></i> TikTok
+</a>
+
+<a href="https://www.instagram.com/arasshehe" class="btn">
+<i class="fa-brands fa-instagram"></i> Instagram
+</a>
+
+<a href="https://x.com/?lang=id" class="btn">
+<i class="fa-brands fa-twitter"></i> Twitter
 </a>
 
 <div class="btn" onclick="openPayment()">
@@ -411,6 +700,7 @@ frameborder="0">
 <img src="https://files.catbox.moe/peynxj.jpeg" class="qr">
 
 <div class="pay">
+<img src="https://files.catbox.moe/fd63f3.jpg" alt="Dana" style="width:40px; height:40px; object-fit:contain;">
 <span id="dana">082129088177</span>
 <button class="copybtn" onclick="copyText('dana')">Copy</button>
 </div>
@@ -422,6 +712,33 @@ frameborder="0">
 
 <script>
 
+// ANIMATED COUNTER
+function animateCounter(element, target, duration = 2000) {
+const start = 0;
+const increment = target / (duration / 16); // 60fps
+let current = start;
+
+const counter = setInterval(() => {
+current += increment;
+
+if (current >= target) {
+element.textContent = target;
+clearInterval(counter);
+} else {
+element.textContent = Math.floor(current);
+}
+}, 16);
+}
+
+// Trigger animation saat page load
+window.addEventListener('load', () => {
+const followerCounter = document.getElementById('followerCount');
+const likesCounter = document.getElementById('likesCount');
+
+animateCounter(followerCounter, 200, 2500); // 2.5 detik
+animateCounter(likesCounter, 500, 2800); // 2.8 detik (sedikit delay)
+});
+
 function openPayment(){
 document.getElementById("paymentPopup").classList.add("show");
 }
@@ -430,10 +747,58 @@ function closePayment(){
 document.getElementById("paymentPopup").classList.remove("show");
 }
 
+function showToast(message, type='success'){
+const container=document.getElementById("toastContainer");
+
+const toast=document.createElement("div");
+toast.className=`toast ${type}`;
+
+const iconClass=type==='success'?'fa-check-circle':'fa-exclamation-circle';
+
+toast.innerHTML=`
+<i class="fa-solid ${iconClass} toast-icon"></i>
+<span class="toast-text">${message}</span>
+<button class="toast-close" onclick="this.parentElement.remove()">
+<i class="fa-solid fa-times"></i>
+</button>
+`;
+
+container.appendChild(toast);
+
+setTimeout(()=>{
+toast.style.animation="slideOut .4s cubic-bezier(.19,1,.22,1) forwards";
+setTimeout(()=>toast.remove(),400);
+},2500);
+}
+
 function copyText(id){
 let text=document.getElementById(id).innerText;
-navigator.clipboard.writeText(text);
-alert("Copied: "+text);
+
+if(navigator.clipboard&&window.isSecureContext){
+navigator.clipboard.writeText(text).then(()=>{
+showToast(`Copied: ${text}`,  'success');
+}).catch(()=>{
+fallbackCopy(text);
+});
+}else{
+fallbackCopy(text);
+}
+}
+
+function fallbackCopy(text){
+const textarea=document.createElement("textarea");
+textarea.value=text;
+textarea.style.position="fixed";
+textarea.style.opacity="0";
+document.body.appendChild(textarea);
+textarea.select();
+try{
+document.execCommand("copy");
+showToast(`Copied: ${text}`,  'success');
+}catch(err){
+showToast('Failed to copy',  'error');
+}
+document.body.removeChild(textarea);
 }
 
 </script>
